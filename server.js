@@ -1,13 +1,12 @@
+// https://super-note-taker-tool-23.herokuapp.com/
+// https://git.heroku.com/super-note-taker-tool-23.git
+
+const PORT = process.env.PORT || 3001;
+
 const express = require('express');
 const { data } = require('./db/db.json');
 
 const app = express();
-
-
-app.listen(3001, () => {
-    console.log(`API server now on port 3001!`);
-  });
-
 
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
