@@ -5,19 +5,20 @@ const fs = require('fs');
 
 // Reading test data from Database
 let notes = require('./Develop/db/db.json');
-notes = JSON.parse(notes);
+//notes = JSON.parse(notes);
 
+// creating server 
 const PORT = process.env.PORT || 3001;
-// const apiRoutes = require('./routes/apiRoutes');
-// const htmlRoutes = require('./routes/htmlRoutes'); 
-
-
 const app = express();
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static('./Develop/public')); 
 
 
-  app.use(express.urlencoded({ extended: true }));
-  app.use(express.json());
-  app.use(express.static('public'));
+// Routes
+// homepage route
+app.get('/', (request, response) => response.sendFile(path.join(__dirname, '/public/index.html')));
+
 
 // Use apiRoutes
 // app.use('/api', apiRoutes);
