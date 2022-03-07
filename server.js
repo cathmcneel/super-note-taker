@@ -22,17 +22,43 @@ app.get('/', (request, response) => response.sendFile(path.join(__dirname, '/Dev
 // notes route
 app.get('/notes', (request, response) => response.sendFile(path.join(__dirname, '/Develop/public/notes.html')));
 
+// this is the API view of our data
+app.get('/api/notes', (request, response) => response.json(notes));
+
+// We are POSTing data to our database
+// our database is db.json
+app.post('/api/notes', (request, response) => {
+
+    // creating new note from the text in our request
+    let newNote = request.body
+
+    // add ID to new notes
+    newNote.id = Math.floor(Math.random() * 10000);
+
+    //log data in console
+    console.log("Adding Note: ", newNote);
+
+    //add data to notes array
+    notes.push(newNote);
+    console.log(notes);
+
+    response.end();
+});
 
 
+//DELETE Data from database
+app.delete('/api/notes/:id', (request, response) => {
 
-// Use apiRoutes
-// app.use('/api', apiRoutes);
-// app.use('/', htmlRoutes);
+    //creating an ID of our request parameters
+    const selectedNoteID = request.params.id;
+    console.log(`Removing item with id: ${selectedNoteID}`);
 
+    // //remove item from notes array
+    notes = notes.filter(note => note.id != selectedNoteID);
+
+    response.end();
+});
 
 app.listen(PORT, () => {
     console.log(`API server now on port ${PORT}!`);
   });
-
-
-
