@@ -5,7 +5,7 @@ const fs = require('fs');
 
 // Reading test data from Database
 let notes = require('./Develop/db/db.json');
-//notes = JSON.parse(notes);
+
 
 // creating server 
 const PORT = process.env.PORT || 3001;
@@ -17,7 +17,12 @@ app.use(express.static('./Develop/public'));
 
 // Routes
 // homepage route
-app.get('/', (request, response) => response.sendFile(path.join(__dirname, '/public/index.html')));
+app.get('/', (request, response) => response.sendFile(path.join(__dirname, '/Develop/public/index.html')));
+
+// notes route
+app.get('/notes', (request, response) => response.sendFile(path.join(__dirname, '/Develop/public/notes.html')));
+
+
 
 
 // Use apiRoutes
